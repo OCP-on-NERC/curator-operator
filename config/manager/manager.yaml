@@ -32,7 +32,7 @@ spec:
           - "--health-probe-bind-address=0.0.0.0:8081"
           - "--metrics-bind-address=127.0.0.1:8080"
           - "--http-port=:8082"
-        image: quay.io/curator/curator:latest
+        image: "ghcr.io/ocp-on-nerc/curator-operator/curator-manager:latest"
         name: manager
         securityContext:
           allowPrivilegeEscalation: false
@@ -43,31 +43,31 @@ spec:
           - name: DATABASE_NAME
             valueFrom:
               secretKeyRef:
-                 name: db-secret-file
+                 name: postgres-config
                  key: DatabaseName
 
           - name: DATABASE_USER
             valueFrom:
               secretKeyRef:
-                name: db-secret-file
+                name: postgres-config
                 key: DatabaseUser
 
           - name: DATABASE_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: db-secret-file
+                name: postgres-config
                 key: DatabasePassword
 
           - name: DATABASE_HOST_NAME
             valueFrom:
                 secretKeyRef:
-                  name: db-secret-file
+                  name: postgres-config
                   key: DatabaseHostName
 
           - name: PORT_NUMBER
             valueFrom:
                 secretKeyRef:
-                  name: db-secret-file
+                  name: postgres-config
                   key: DatabasePort
         readinessProbe:
           httpGet:
